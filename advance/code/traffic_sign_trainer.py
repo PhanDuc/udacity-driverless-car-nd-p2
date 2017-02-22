@@ -253,9 +253,10 @@ def run_test():
     print('read data:\n')
     classnames, train_images, train_labels, valid_images, valid_labels, test_images, test_labels = load_data()
 
-    train_images = pre_process(train_images)
-    valid_images = pre_process(valid_images)
-    test_images  = pre_process(test_images)
+    preprocess = preprocess_simple
+    train_images = preprocess(train_images)
+    valid_images = preprocess(valid_images)
+    test_images  = preprocess(test_images)
 
     num_class = 43
     _, height, width, channel = train_images.shape
@@ -281,7 +282,7 @@ def run_test():
         #saver.restore(sess, out_dir + '/check_points/final.ckpt')
         saver.restore(sess, out_dir + '/check_points/final.ckpt')
 
-        # shuffle and test
+        # shuffle and test using difference batch size (just make sure there is not bug!)
         print('** evaluation on test set **')
         for i in range(10):
             images,  labels = shuffle_data(test_images, test_labels)
