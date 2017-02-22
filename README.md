@@ -12,7 +12,7 @@ _solution using LeNet .... to be updated ...._
 Please see the "advance" folder. 
 
 I use modified densenet[1] and obtained **99.40%** on the test set. 
-The netowk complexity is about **27.0 million MAC** (Multiply–accumulate operation counts). 
+The network complexity is about **27.0 million MAC** (Multiply–accumulate operation counts). 
 
 Here is my network structure. Each "Dense block" consists of concatenation of convolutions (in conv-bn-relu). Note that unlike the paper, dropout is not applied in the block. Instead, I use droupout after the block.
 
