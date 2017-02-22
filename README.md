@@ -1,6 +1,6 @@
 **# udacity-driverless-car-nd-p2**
 
-This is my work for the Self-Driving Car Engineer Nanodegree ND-013 course project, "2.Traffic Sign Calssifier" . The project problem can be found here: [https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project)
+This is my work for the Self-Driving Car Engineer Nanodegree ND-013 course project, "2.Traffic Sign Classifier" . The project problem can be found here: [https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project)
 
 ---
 ## Basic solution
