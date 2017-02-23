@@ -9,8 +9,15 @@ Please see the "basic" folder.
 Let us look at the data (the second column is the mean image of each class):
 ![image](data/data_summary.jpg)
 
+Here is the basic solution using LeNet.
+
+![image](basic/docs/images/000.png)
+
 
 _solution using LeNet .... to be updated ...._
+
+
+
 ---
 ## Advance solution
 Please see the "advance" folder. 
