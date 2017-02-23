@@ -6,7 +6,7 @@ This is my work for the Self-Driving Car Engineer Nanodegree ND-013 course proje
 ## Basic solution
 Please see the "basic" folder. 
 
-Let us look at the data:
+Let us look at the data (the second column is the mean image of each class):
 ![image](data/data_summary.jpg)
 
 
