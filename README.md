@@ -4,12 +4,18 @@ This is my work for the Self-Driving Car Engineer Nanodegree ND-013 course proje
 
 ---
 ## Basic solution
+Please see the "basic" folder. 
+
+Let us look at the data:
+![image](data/data_summary.jpg)
+
+
 _solution using LeNet .... to be updated ...._
-
-
 ---
 ## Advance solution
-Please see the "advance" folder. There is some write up at my blog: [https://medium.com/@hengcherkeng/updated-my-99-40-solution-to-udacity-nanodegree-project-p2-traffic-sign-classification](https://medium.com/@hengcherkeng/updated-my-99-40-solution-to-udacity-nanodegree-project-p2-traffic-sign-classification-5580ae5bd51f#.da1xutkw2)
+Please see the "advance" folder. 
+
+There is some write up at my blog: [https://medium.com/@hengcherkeng/updated-my-99-40-solution-to-udacity-nanodegree-project-p2-traffic-sign-classification](https://medium.com/@hengcherkeng/updated-my-99-40-solution-to-udacity-nanodegree-project-p2-traffic-sign-classification-5580ae5bd51f#.da1xutkw2)
 
 I use modified densenet[1] and obtained **99.40%** on the test set. 
 The network complexity is about **27.0 million MAC** (multiply–accumulate operation counts). 
