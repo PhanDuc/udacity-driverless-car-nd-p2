@@ -219,13 +219,8 @@ def run_train():
 
                     #validation
                     val_loss, val_acc  = test_net(valid_images, valid_labels, batch_size, data, label, loss, metric, sess)
-
-
-                    # test_loss,test_acc = test_net(test_images,  test_labels,  batch_size, data, label, loss, metric, sess)
-                    # log.write('\r')
-                    # log.write('%4.1f  %5.1f   %05d   %f  |  %f    (%f)  |  %f    (%f)  |    %f    (%f)  |  %4.1f min  \n' %
-                    #       (run, epoch, iter, rate, batch_loss, batch_acc, val_loss, val_acc, test_loss,test_acc, min_pass ))
-
+                    log.write('\r')
+ 
                     log.write('%4.1f  %5.1f   %05d   %f  |  %f    (%f)  |  %f    (%f)  | %4.1f min  \n' %
                           (run, epoch, iter, rate, batch_loss, batch_acc, val_loss, val_acc, min_pass))
 
