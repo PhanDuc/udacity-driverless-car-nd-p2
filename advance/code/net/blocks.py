@@ -2,10 +2,7 @@
 building blocks of network
 #http://programtalk.com/vs2/python/3069/image_captioning/utils/nn.py/
 '''
-
-import numpy as np
-
-import tensorflow as tf
+from net.common import *
 from tensorflow.python.training import moving_averages
 from tensorflow.contrib.framework import add_model_variable
 
@@ -235,7 +232,8 @@ def relu(input, name='relu'):
 
 def prelu(input, name='prelu'):
   alpha = tf.get_variable(name=name+'_alpha', shape=input.get_shape()[-1],
-                       initializer=tf.constant_initializer(0.1),
+                       #initializer=tf.constant_initializer(0.25),
+                        initializer=tf.random_uniform_initializer(minval=0.1, maxval=0.3),
                         dtype=tf.float32)
   pos = tf.nn.relu(input)
   neg = alpha * (input - abs(input)) * 0.5
@@ -248,6 +246,13 @@ def vlrelu(input, alpha=0.25, name='vlrelu'): #  alpha between 0.1 to 0.5
     act =tf.maximum(alpha*input,input)
     return act
 
+def mixpool(input, kernel_size=(1,1), stride=[1,1,1,1], padding='SAME', has_bias=True, name='mix' ):
+    H = kernel_size[0]
+    W = kernel_size[1]
+    pool1 = tf.nn.max_pool(input, ksize=[1, H, W, 1], strides=stride, padding=padding, name=name+'/max')
+    pool2 = tf.nn.avg_pool(input, ksize=[1, H, W, 1], strides=stride, padding=padding, name=name+'/avg')
+    pool =pool1+pool2
+    return pool
 
 def maxpool(input, kernel_size=(1,1), stride=[1,1,1,1], padding='SAME', has_bias=True, name='max' ):
     H = kernel_size[0]

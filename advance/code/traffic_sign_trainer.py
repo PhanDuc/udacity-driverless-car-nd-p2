@@ -16,7 +16,7 @@
 from data import *
 from net.common import *
 from net.blocks import *
-from net.densenet import DenseNet_2 as make_net
+from net.densenet import DenseNet_3 as make_net
 
 
 
@@ -63,7 +63,7 @@ def test_net( datas, labels, batch_size, data, label, loss, metric, sess):
 def run_train():
 
     # output dir, etc
-    out_dir =  '/root/share/out/udacity/06'
+    out_dir =  '/root/share/out/udacity/20'
     makedirs(out_dir+'/check_points')
     makedirs(out_dir+'/tf_board'    )
     #empty(out_dir+'/check_points')
@@ -85,9 +85,9 @@ def run_train():
 
     preprocess = preprocess_simple    #preprocess_hist   #pre_process_ycrcb   #pre_process_simple  #pre_process_whiten
     classnames, train_images, train_labels, valid_images, valid_labels, test_images, test_labels = load_data()
-    train_images = preprocess(train_images)
-    valid_images = preprocess(valid_images)
-    test_images  = preprocess(test_images)
+    #train_images = preprocess(train_images)
+    #valid_images = preprocess(valid_images)
+    #test_images  = preprocess(test_images)
 
     num_class = 43
     _, height, width, channel = train_images.shape
@@ -129,7 +129,7 @@ def run_train():
     epoch_log = 2
 
     max_run    = 9
-    batch_size = 128  #256 #96  384  #128
+    batch_size = 128  #128  #256 #96  384  #128
     steps = (0, 3, 6, 8)  ##(0, 8, 10, 11)
     rates = (0.1, 0.01,  0.001, 0.0001)  ##(0.1, 0.01, 0.001, 0.0001)
 
@@ -218,11 +218,16 @@ def run_train():
                     min_pass = sec_pass/60.
 
                     #validation
-                    val_loss, val_acc =  test_net(valid_images, valid_labels, batch_size, data, label, loss, metric, sess)
+                    val_loss, val_acc  = test_net(valid_images, valid_labels, batch_size, data, label, loss, metric, sess)
 
-                    log.write('\r')
-                    log.write('%4.1f  %5.1f   %05d   %f  |  %f    (%f)  |  %f    (%f)  |  %4.1f min  \n' %
-                          (run, epoch, iter, rate, batch_loss, batch_acc, val_loss, val_acc, min_pass ))
+
+                    # test_loss,test_acc = test_net(test_images,  test_labels,  batch_size, data, label, loss, metric, sess)
+                    # log.write('\r')
+                    # log.write('%4.1f  %5.1f   %05d   %f  |  %f    (%f)  |  %f    (%f)  |    %f    (%f)  |  %4.1f min  \n' %
+                    #       (run, epoch, iter, rate, batch_loss, batch_acc, val_loss, val_acc, test_loss,test_acc, min_pass ))
+
+                    log.write('%4.1f  %5.1f   %05d   %f  |  %f    (%f)  |  %f    (%f)  | %4.1f min  \n' %
+                          (run, epoch, iter, rate, batch_loss, batch_acc, val_loss, val_acc, min_pass))
 
 
                 pass
@@ -293,9 +298,130 @@ def run_test():
 
 
 
+def run_extra_test():
+
+    # output dir, etc
+    out_dir  = '/root/share/out/udacity/08'
+    data_dir = '/root/share/project/udacity/project2_01/data'
+    # ----------------------------------------
+    # data_dir = '/root/share/project/udacity/project2_01/data'
+    # classname_file = data_dir + '/signnames.csv'
+    # classnames = []
+    # with open(classname_file) as _f:
+    #     rows = csv.reader(_f, delimiter=',')
+    #     next(rows, None)  # skip the headers
+    #     for i, row in enumerate(rows):
+    #         assert (i == int(row[0]))
+    #         classnames.append(row[1])
+    #
+    classnames, train_images, train_labels, valid_images, valid_labels, test_images, test_labels = load_data()
+    height, width, channel = 32, 32, 3
+    num_class = 43
+
+    #prepare data ----------------------------------------------
+    test_files = ['0004.jpg',  # normal
+                  '0000.jpg',  # normal
+                  '0007.jpg',  # occluded with snow
+                  '0006.jpg',  # small
+                  '0005.jpg',  # not in class
+                  ]
+    test_rois = [(54, 180, 125, 260), (160, 430, 207, 469), (181, 32, 321, 142), (226, 65, 242, 78),
+                 (388, 408, 700, 676)]
+    num = len(test_files)
+    print('num=%d' % num)
+
+    # crop roi to 32x32
+    results_image  = 255. * np.ones(shape=(1 * height, num * width, channel), dtype=np.float32)
+    results_image1 = 255. * np.ones(shape=(1 * 320, num * 320, channel), dtype=np.float32)
+    crops = np.zeros(shape=(num, height, width, channel), dtype=np.float32)
+    for n in range(num):
+        img = cv2.imread(data_dir + '/extra/' + test_files[n], 1)
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB).astype(np.float32)
+        x1, y1, x2, y2 = test_rois[n]
+        crop = cv2.resize(img[y1:y2, x1:x2, :], (0, 0), fx=32. / (x2 - x1), fy=32. / (y2 - y1),
+                          interpolation=cv2.INTER_CUBIC)
+
+        crop = np.clip(crop, 0, 255)
+        crops[n] = crop
+        insert_subimage(results_image, crop, 0, n * width)
+
+        # mak roi and show
+        H, W, C = img.shape
+        S = max(H, W)
+        f = 320. / S
+        norm_img = cv2.resize(img, (0, 0), fx=f, fy=f, interpolation=cv2.INTER_CUBIC)
+        cv2.rectangle(norm_img, (round(f * x1), round(f * y1)), (round(f * x2), round(f * y2)), (255, 255, 0), 3)
+        insert_subimage(results_image1, norm_img, 0, n * 320)
+        imshow('crop', crop)
+        imshow('img', img)
+        cv2.waitKey(1)
+
+    cv2.imwrite(data_dir + '/extra/' + 'crops.jpg', cv2.cvtColor(results_image, cv2.COLOR_BGR2RGB))
+    # imshow('results_image', results_image)
+    # imshow('results_image1', results_image1)
+    # cv2.waitKey(1)
+
+
+
+    #net  -----------------------------------------------
+    logit = make_net(input_shape=(height, width, channel), output_shape=(num_class))
+
+    # data  = tf.placeholder(dtype=tf.float32, shape=[None, height, width, channel])
+    data = tf.get_default_graph().get_tensor_by_name('input:0')
+    label = tf.placeholder(dtype=tf.float32, shape=[None])
+    prob = tf.nn.softmax(logit)
+    # top_k = tf.nn.top_k(prob, k=5)
+
+
+    # start testing here ------------------------------------------------
+
+
+    # sess = tf.InteractiveSession()
+    # with sess.as_default():
+    #     print('** test on extra **')
+    #
+    #     # saver = tf.train.Saver()
+    #     # saver.restore(sess, out_dir + '/check_points/final.ckpt')
+    #     # fd = {data: crops, IS_TRAIN_PHASE: False}
+    #     # test_prob = sess.run(prob, feed_dict=fd)
+
+    test_prob = np.random.uniform(size=(num,num_class))
+
+
+    # show results ------------------
+
+    f=8
+    results_image = 255. * np.ones(shape=(5*(f*height + 30), 6*f*width, channel), dtype=np.float32)
+
+    for n in range(num):
+        print('n=%d:' % n)
+        crop = crops[n]
+        #crop = cv2.resize(crop, (0, 0), fx=f, fy=f, interpolation=cv2.INTER_NN)
+        crop = crop.repeat(f, axis=0).repeat(f, axis=1)
+        insert_subimage(results_image, crop, n * (f*height + 30), 0)
+
+        p = test_prob[n]
+        idx = np.argsort(p)[::-1]
+        for k in range(5):
+            c = int(idx[k])
+            label_image = get_label_image(c)
+            #label_image = cv2.resize(label_image, (0, 0), fx=f, fy=f, interpolation=cv2.INTER_NN)
+            label_image = label_image.repeat(f, axis=0).repeat(f, axis=1)
+            insert_subimage(results_image, label_image, n * (f*height + 30), (k + 1) * f*width)
+
+
+            print('\ttop%d: %f  %02d:%s' % (k, p[c], c, classnames[c]))
+            cv2.putText(results_image, 'top%d: %f' % (k, p[c]), (5+(k + 1) * f*width, (n+1) * (f*height + 30)-27), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1)
+            cv2.putText(results_image, '%02d:%s%s' % (c, classnames[c][0:20], '...' if len(classnames[c])>20 else ''), (5+(k + 1) * f*width, (n+1) * (f*height + 30)-7), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1)
+
+    imshow('results_image', results_image)
+    cv2.waitKey(0)
+
 ## MAIN ##############################################################
 
 if __name__ == '__main__':
     print('%s: calling main function ... ' % os.path.basename(__file__))
     run_train()
     #run_test()
+
+    #run_extra_test()

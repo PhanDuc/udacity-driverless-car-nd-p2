@@ -1,0 +1,15 @@
+       if 0:
+            perturb = cv2.cvtColor(perturb, cv2.COLOR_RGB2HSV)
+            current_bright = np.average(perturb[:, :, 2])
+            dbright = illumin_limit * np.random.uniform()
+            dbright = 1-dbright if current_bright>40 else 1+dbright
+            perturb[:, :, 2] = perturb[:, :, 2] * dbright
+            perturb = np.clip(cv2.cvtColor(perturb, cv2.COLOR_HSV2RGB),0.,255.)
+        if 0:
+            perturb = cv2.cvtColor(perturb*128+128, cv2.COLOR_RGB2HSV)
+            current_bright = np.average(perturb[:, :, 2])
+            dbright = illumin_limit * np.random.uniform()
+            dbright = 1-dbright if current_bright>40 else 1+dbright
+            perturb[:, :, 2] = perturb[:, :, 2] * dbright
+            perturb = np.clip(cv2.cvtColor(perturb, cv2.COLOR_HSV2RGB),0.,255.)
+            perturb = perturb/256. -0.5

@@ -134,9 +134,12 @@ def extend_data_by_flipping(images, labels):
     return (extend_datas, extend_labels)
 
 
-
+# see also: https://github.com/dmlc/mxnet/blob/master/python/mxnet/image.py
 # use opencv to do data agumentation
-def perturb(image, keep, angle_limit=15, scale_limit=0.1, translate_limit=3, distort_limit=3):
+
+
+# def perturb(image, keep, angle_limit=15, scale_limit=0.1, translate_limit=3, distort_limit=3, illumin_limit=0.5)
+def perturb(image, keep, angle_limit=15, scale_limit=0.1, translate_limit=3, distort_limit=3, illumin_limit=0.7):
 
     u=np.random.uniform()
     if u>keep :
@@ -160,9 +163,39 @@ def perturb(image, keep, angle_limit=15, scale_limit=0.1, translate_limit=3, dis
 
         #http://milindapro.blogspot.jp/2015/05/opencv-filters-copymakeborder.html
         matrix  = cv2.getPerspectiveTransform(pts1.astype(np.float32), pts2.astype(np.float32))
-        #perturb = cv2.warpPerspective(image, matrix, (W, H),flags =cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT_101)  #BORDER_WRAP  #BORDER_REFLECT_101
         perturb = cv2.warpPerspective(image, matrix, (W, H), flags=cv2.INTER_LINEAR,
                                       borderMode=cv2.BORDER_REFLECT_101)  # BORDER_WRAP  #BORDER_REFLECT_101  #cv2.BORDER_CONSTANT  BORDER_REPLICATE
+
+        #brightness, contrast, saturation-------------
+        #from mxnet code
+        if 1:  #brightness
+            alpha = 1.0 + illumin_limit*random.uniform(-1, 1)
+            perturb *= alpha
+            perturb = np.clip(perturb,0.,255.)
+            pass
+
+        if 1:  #contrast
+            coef = np.array([[[0.299, 0.587, 0.114]]]) #rgb to gray (YCbCr) :  Y = 0.299R + 0.587G + 0.114B
+
+            alpha = 1.0 + illumin_limit*random.uniform(-1, 1)
+            gray = perturb * coef
+            gray = (3.0 * (1.0 - alpha) / gray.size) * np.sum(gray)
+            perturb *= alpha
+            perturb += gray
+            perturb = np.clip(perturb,0.,255.)
+            pass
+
+        if 1:  #saturation
+            coef = np.array([[[0.299, 0.587, 0.114]]]) #rgb to gray (YCbCr) :  Y = 0.299R + 0.587G + 0.114B
+
+            alpha = 1.0 + illumin_limit*random.uniform(-1, 1)
+            gray = perturb * coef
+            gray = np.sum(gray, axis=2, keepdims=True)
+            gray *= (1.0 - alpha)
+            perturb *= alpha
+            perturb += gray
+            perturb = np.clip(perturb,0.,255.)
+            pass
 
         return perturb
 
@@ -172,10 +205,13 @@ def perturb(image, keep, angle_limit=15, scale_limit=0.1, translate_limit=3, dis
 
 
 def make_perturb_images(images, keep ):
+    #images = undo_preprocess_simple(images)
+
     arguments = np.zeros(images.shape)
     for n in range(len(images)):
         arguments[n] = perturb(images[n],keep = keep)
 
+    #arguments = preprocess_simple(arguments)
     return arguments
 
 
@@ -287,7 +323,112 @@ def load_data():
 
 
 
+# exploration -------------------------------------------------------------------
+def get_label_image(c):
+
+    img=cv2.imread('/root/share/project/udacity/project2_01/data/signnames_all.jpg',1)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    H, W, _ = img.shape
+    dH = H/7.
+    dW = W/7.105
+    y = c//7
+    x = c%7
+
+    label_image = img[round(y*dH):round(y*dH+dH), round(x*dW):round(x*dW+dW),:]
+    label_image = cv2.resize(label_image, (0,0), fx=32./dW, fy=32./dH,)
+    return label_image
+
+
+def insert_subimage(image, sub_image, y, x):
+
+    h, w, c = sub_image.shape
+    image[y:y+h, x:x+w, :]=sub_image
+
+    return image
+
+
+#data summary
+def run_data_explore_0():
+
+    classnames, train_images, train_labels, valid_images, valid_labels, test_images, test_labels = load_data()
+    num_class = 43
+    _, height, width, channel = train_images.shape
+
+    #count
+    #h = np.histogram(train_labels, bins=np.arange(num_class))
+
+    #results image
+    num_sample=10
+    results_image = 255.*np.ones(shape=(num_class*height,(num_sample+2+22)*width, channel),dtype=np.float32)
+    for c in range(num_class):
+        label_image = get_label_image(c)
+        insert_subimage(results_image, label_image, c*height, 0)
+
+        #make mean
+        idx = list(np.where(train_labels== c)[0])
+        mean_image = np.average(train_images[idx], axis=0)
+        insert_subimage(results_image, mean_image, c*height, width)
+
+        # imshow('mean_image',mean_image)
+        # imshow('label_image',label_image)
+        # cv2.waitKey(0)
+
+        #make random sample
+        for n in range(num_sample):
+            sample_image = train_images[np.random.choice(idx)]
+            insert_subimage(results_image, sample_image, c*height, (2+n)*width)
+
+        #print summary
+        count=len(idx)
+        percentage = float(count)/float(len(train_images))
+        cv2.putText(results_image, '%02d:%-6s'%(c, classnames[c]), ((2+num_sample)*width, int((c+0.7)*height)),cv2.FONT_HERSHEY_SIMPLEX,0.5,(0,0,0),1)
+        cv2.putText(results_image, '[%4d]'%(count), ((2+num_sample+14)*width, int((c+0.7)*height)),cv2.FONT_HERSHEY_SIMPLEX,0.5,(0,0,255),1)
+        cv2.rectangle(results_image,((2+num_sample+16)*width, c*height),((2+num_sample+16)*width + round(percentage*3000), (c+1)*height),(0,0,255),-1)
+
+
+    cv2.imwrite('/root/share/project/udacity/project2_01/data/data_summary.jpg',cv2.cvtColor(results_image, cv2.COLOR_BGR2RGB))
+    imshow('results_image',results_image)
+    cv2.waitKey(0)
+
+
+#data augmentation
+def run_data_explore_1():
+
+    classnames, train_images, train_labels, valid_images, valid_labels, test_images, test_labels = load_data()
+    train_images, train_labels = extend_data_by_flipping(train_images, train_labels)
+    num_train_flip = len(train_images)
+
+    num_class = 43
+    _, height, width, channel = train_images.shape
+
+    # count
+    # h = np.histogram(train_labels, bins=np.arange(num_class))
+
+    # results image
+    num_sample = 30
+    perturbance_per_sample = 30
+
+    results_image = 255. * np.ones(shape=(num_sample * height, (perturbance_per_sample+1)* width+10, channel),dtype=np.float32)
+
+    for j in range(num_sample):
+        i = random.randint(0, num_train_flip - 1)
+
+        image = train_images[i]
+        insert_subimage(results_image, image, j * height, 0)
+
+        for k in range(0, perturbance_per_sample):
+            perturb_image = perturb(image, keep=0)
+            insert_subimage(results_image, perturb_image, j*height, (k+1)*width+10)
+
+
+
+    cv2.imwrite('/root/share/project/udacity/project2_01/data/data_perturb.jpg',cv2.cvtColor(results_image, cv2.COLOR_BGR2RGB))
+    imshow('results_image', results_image)
+    cv2.waitKey(0)
+
 
 # main --------------------------------------------------------------------------
 if __name__ == '__main__':
     print( '%s: calling main function ... ' % os.path.basename(__file__))
+
+    run_data_explore_1()
