@@ -136,7 +136,7 @@ def run_train():
 
     learning_rate = tf.placeholder(tf.float32, shape=[])
     solver = tf.train.MomentumOptimizer(learning_rate=learning_rate, momentum=0.9)
-    solver_step = solver.minimize(loss)
+    solver_step = solver.minimize(loss+l2)
 
     log.write('** some solver setting **\n')
     log.write('\tbatch_size = %d\n'%batch_size)
