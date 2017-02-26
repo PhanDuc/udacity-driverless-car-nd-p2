@@ -40,11 +40,11 @@
         <splitter split-orientation="vertical" split-proportion="0.9">
           <split-first>
             <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-              <file leaf-file-name="data.py" pinned="false" current-in-tab="true">
+              <file leaf-file-name="data.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/data.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="-1385">
-                      <caret line="382" column="0" lean-forward="true" selection-start-line="382" selection-start-column="0" selection-end-line="382" selection-end-column="0" />
+                    <state relative-caret-position="275">
+                      <caret line="468" column="0" lean-forward="true" selection-start-line="468" selection-start-column="0" selection-end-line="468" selection-end-column="0" />
                       <folding />
                     </state>
                   </provider>
@@ -72,20 +72,13 @@
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="traffic_sign_trainer.py" pinned="false" current-in-tab="false">
+              <file leaf-file-name="traffic_sign_trainer.py" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/traffic_sign_trainer.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="41">
-                      <caret line="101" column="42" lean-forward="false" selection-start-line="101" selection-start-column="23" selection-end-line="101" selection-end-column="42" />
+                    <state relative-caret-position="-4185">
+                      <caret line="24" column="57" lean-forward="true" selection-start-line="24" selection-start-column="57" selection-end-line="24" selection-end-column="57" />
                       <folding>
                         <element signature="e#673#691#0" expanded="true" />
-                        <marker date="1488102583599" expanded="true" signature="1772:9836" ph="..." />
-                        <marker date="1488102583599" expanded="true" signature="9187:9210" ph="..." />
-                        <marker date="1488102583599" expanded="true" signature="9187:9329" ph="..." />
-                        <marker date="1488102583599" expanded="true" signature="9187:9836" ph="..." />
-                        <marker date="1488102583599" expanded="true" signature="9855:11746" ph="..." />
-                        <marker date="1488102583599" expanded="true" signature="11094:11746" ph="..." />
-                        <marker date="1488102583599" expanded="true" signature="11851:11959" ph="..." />
                       </folding>
                     </state>
                   </provider>
@@ -129,7 +122,7 @@
                 <entry file="file://$PROJECT_DIR$/traffic_sign_trainer.py">
                   <provider selected="true" editor-type-id="text-editor">
                     <state relative-caret-position="954">
-                      <caret line="313" column="0" lean-forward="false" selection-start-line="313" selection-start-column="0" selection-end-line="313" selection-end-column="0" />
+                      <caret line="300" column="0" lean-forward="false" selection-start-line="300" selection-start-column="0" selection-end-line="300" selection-end-column="0" />
                       <folding>
                         <element signature="e#673#691#0" expanded="true" />
                       </folding>
@@ -242,10 +235,10 @@
         <option value="$PROJECT_DIR$/note" />
         <option value="$PROJECT_DIR$/__temp__/xxx" />
         <option value="$PROJECT_DIR$/net/blocks.py" />
-        <option value="$PROJECT_DIR$/traffic_sign_trainer.py" />
         <option value="$PROJECT_DIR$/__temp__/unorganisaed code.py" />
         <option value="$PROJECT_DIR$/net/densenet.py" />
         <option value="$PROJECT_DIR$/data.py" />
+        <option value="$PROJECT_DIR$/traffic_sign_trainer.py" />
       </list>
     </option>
   </component>
@@ -256,8 +249,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="145" />
-    <option name="y" value="726" />
+    <option name="x" value="58" />
+    <option name="y" value="194" />
     <option name="width" value="1505" />
     <option name="height" value="693" />
   </component>
@@ -659,17 +652,17 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="145" y="726" width="1505" height="693" extended-state="0" />
-    <editor active="true" />
+    <frame x="58" y="194" width="1505" height="693" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32681563" sideWeight="0.49778622" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.315427" sideWeight="0.5070785" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30307263" sideWeight="0.49778622" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37688443" sideWeight="0.4929215" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37688443" sideWeight="0.4929215" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26955307" sideWeight="0.49498567" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295129" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2131597" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.04249486" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295129" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290653" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12839974" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -724,24 +717,9 @@
           <option name="timeStamp" value="29" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/traffic_sign_trainer.py</url>
-          <line>230</line>
-          <option name="timeStamp" value="49" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/net/blocks.py</url>
           <line>99</line>
           <option name="timeStamp" value="70" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/traffic_sign_trainer.py</url>
-          <line>206</line>
-          <option name="timeStamp" value="76" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/traffic_sign_trainer.py</url>
-          <line>148</line>
-          <option name="timeStamp" value="78" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -1043,23 +1021,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/traffic_sign_trainer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="41">
-          <caret line="101" column="42" lean-forward="false" selection-start-line="101" selection-start-column="23" selection-end-line="101" selection-end-column="42" />
-          <folding>
-            <element signature="e#673#691#0" expanded="true" />
-            <marker date="1488102583599" expanded="true" signature="1772:9836" ph="..." />
-            <marker date="1488102583599" expanded="true" signature="9187:9210" ph="..." />
-            <marker date="1488102583599" expanded="true" signature="9187:9329" ph="..." />
-            <marker date="1488102583599" expanded="true" signature="9187:9836" ph="..." />
-            <marker date="1488102583599" expanded="true" signature="9855:11746" ph="..." />
-            <marker date="1488102583599" expanded="true" signature="11094:11746" ph="..." />
-            <marker date="1488102583599" expanded="true" signature="11851:11959" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/net/densenet.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-102">
@@ -1080,9 +1041,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/data.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1385">
-          <caret line="382" column="0" lean-forward="true" selection-start-line="382" selection-start-column="0" selection-end-line="382" selection-end-column="0" />
+        <state relative-caret-position="275">
+          <caret line="468" column="0" lean-forward="true" selection-start-line="468" selection-start-column="0" selection-end-line="468" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/traffic_sign_trainer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4185">
+          <caret line="24" column="57" lean-forward="true" selection-start-line="24" selection-start-column="57" selection-end-line="24" selection-end-column="57" />
+          <folding>
+            <element signature="e#673#691#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

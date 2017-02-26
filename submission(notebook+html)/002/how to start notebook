@@ -1,0 +1,3 @@
+root@user: cd /opt/anaconda3/bin  ./jupyter notebook /root/share/project/udacity/project2_02/CarND-Traffic-Sign-Classifier-Project/Traffic_Sign_Classifier.ipynb
+#
+

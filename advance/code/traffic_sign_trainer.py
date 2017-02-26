@@ -23,7 +23,6 @@ from net.densenet import DenseNet_3 as make_net
 
 
 def schdule_by_step( r, steps=(0,100), items=(0.1,0.01)):
-
     item = items[0]
     N=len(steps)
     for n in range(N):
@@ -137,12 +136,6 @@ def run_train():
         solver_step = solver.minimize(loss+l2)
 
 
-<<<<<<< HEAD
-=======
-    learning_rate = tf.placeholder(tf.float32, shape=[])
-    solver = tf.train.MomentumOptimizer(learning_rate=learning_rate, momentum=0.9)
-    solver_step = solver.minimize(loss+l2)
->>>>>>> 9d45463802a517d877a3494c2977dce8fa1af2b9
 
     log.write('** some solver setting **\n')
     log.write('\tbatch_size = %d\n'%batch_size)
@@ -215,7 +208,7 @@ def run_train():
 
 
                 #do validation here!
-                if iter%iter_log==0:
+                if iter%iter_log==0 or (r==R-1 and n==N-1):
                 ##if iter%iter_log==0 or n == N-1:
                 ##if n == N-1:
                     toc = timer()
@@ -225,20 +218,14 @@ def run_train():
                     #validation
                     val_loss, val_acc  = test_net(valid_images, valid_labels, batch_size, data, label, loss, metric, sess)
                     log.write('\r')
-<<<<<<< HEAD
 
 					#<debug>
-                    test_loss,test_acc = test_net(test_images,  test_labels,  batch_size, data, label, loss, metric, sess)
-                    log.write('%4.1f  %5.1f   %05d   %f  |  %f    (%f)  |  %f    (%f)  |    %f    (%f)  |  %4.1f min  \n' %
-                          (run, epoch, iter, rate, batch_loss, batch_acc, val_loss, val_acc, test_loss,test_acc, min_pass ))
+                    # test_loss,test_acc = test_net(test_images,  test_labels,  batch_size, data, label, loss, metric, sess)
+                    # log.write('%4.1f  %5.1f   %05d   %f  |  %f    (%f)  |  %f    (%f)  |    %f    (%f)  |  %4.1f min  \n' %
+                    #       (run, epoch, iter, rate, batch_loss, batch_acc, val_loss, val_acc, test_loss,test_acc, min_pass ))
 
-                    #log.write('%4.1f  %5.1f   %05d   %f  |  %f    (%f)  |  %f    (%f)  | %4.1f min  \n' %
-                    #       (run, epoch, iter, rate, batch_loss, batch_acc, val_loss, val_acc, min_pass))
-=======
- 
                     log.write('%4.1f  %5.1f   %05d   %f  |  %f    (%f)  |  %f    (%f)  | %4.1f min  \n' %
-                          (run, epoch, iter, rate, batch_loss, batch_acc, val_loss, val_acc, min_pass))
->>>>>>> 9d45463802a517d877a3494c2977dce8fa1af2b9
+                           (run, epoch, iter, rate, batch_loss, batch_acc, val_loss, val_acc, min_pass))
 
 
                 pass
