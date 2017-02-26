@@ -79,9 +79,13 @@
                       <caret line="101" column="42" lean-forward="false" selection-start-line="101" selection-start-column="23" selection-end-line="101" selection-end-column="42" />
                       <folding>
                         <element signature="e#673#691#0" expanded="true" />
-                        <marker date="1488102241939" expanded="true" signature="9320:11211" ph="..." />
-                        <marker date="1488102241939" expanded="true" signature="10559:11211" ph="..." />
-                        <marker date="1488102241939" expanded="true" signature="11316:11424" ph="..." />
+                        <marker date="1488102583599" expanded="true" signature="1772:9836" ph="..." />
+                        <marker date="1488102583599" expanded="true" signature="9187:9210" ph="..." />
+                        <marker date="1488102583599" expanded="true" signature="9187:9329" ph="..." />
+                        <marker date="1488102583599" expanded="true" signature="9187:9836" ph="..." />
+                        <marker date="1488102583599" expanded="true" signature="9855:11746" ph="..." />
+                        <marker date="1488102583599" expanded="true" signature="11094:11746" ph="..." />
+                        <marker date="1488102583599" expanded="true" signature="11851:11959" ph="..." />
                       </folding>
                     </state>
                   </provider>
@@ -125,7 +129,7 @@
                 <entry file="file://$PROJECT_DIR$/traffic_sign_trainer.py">
                   <provider selected="true" editor-type-id="text-editor">
                     <state relative-caret-position="954">
-                      <caret line="301" column="0" lean-forward="false" selection-start-line="301" selection-start-column="0" selection-end-line="301" selection-end-column="0" />
+                      <caret line="313" column="0" lean-forward="false" selection-start-line="313" selection-start-column="0" selection-end-line="313" selection-end-column="0" />
                       <folding>
                         <element signature="e#673#691#0" expanded="true" />
                       </folding>
@@ -252,10 +256,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="77" />
-    <option name="y" value="318" />
+    <option name="x" value="145" />
+    <option name="y" value="726" />
     <option name="width" value="1505" />
-    <option name="height" value="732" />
+    <option name="height" value="693" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -655,14 +659,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="77" y="318" width="1505" height="732" extended-state="0" />
+    <frame x="145" y="726" width="1505" height="693" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32681563" sideWeight="0.49778622" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.315427" sideWeight="0.5070785" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30307263" sideWeight="0.49778622" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3537736" sideWeight="0.4929215" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37688443" sideWeight="0.4929215" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26955307" sideWeight="0.49498567" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295129" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2131597" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -721,7 +725,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/traffic_sign_trainer.py</url>
-          <line>223</line>
+          <line>230</line>
           <option name="timeStamp" value="49" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -731,12 +735,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/traffic_sign_trainer.py</url>
-          <line>201</line>
+          <line>206</line>
           <option name="timeStamp" value="76" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/traffic_sign_trainer.py</url>
-          <line>143</line>
+          <line>148</line>
           <option name="timeStamp" value="78" />
         </line-breakpoint>
       </breakpoints>
@@ -1045,9 +1049,13 @@
           <caret line="101" column="42" lean-forward="false" selection-start-line="101" selection-start-column="23" selection-end-line="101" selection-end-column="42" />
           <folding>
             <element signature="e#673#691#0" expanded="true" />
-            <marker date="1488102241939" expanded="true" signature="9320:11211" ph="..." />
-            <marker date="1488102241939" expanded="true" signature="10559:11211" ph="..." />
-            <marker date="1488102241939" expanded="true" signature="11316:11424" ph="..." />
+            <marker date="1488102583599" expanded="true" signature="1772:9836" ph="..." />
+            <marker date="1488102583599" expanded="true" signature="9187:9210" ph="..." />
+            <marker date="1488102583599" expanded="true" signature="9187:9329" ph="..." />
+            <marker date="1488102583599" expanded="true" signature="9187:9836" ph="..." />
+            <marker date="1488102583599" expanded="true" signature="9855:11746" ph="..." />
+            <marker date="1488102583599" expanded="true" signature="11094:11746" ph="..." />
+            <marker date="1488102583599" expanded="true" signature="11851:11959" ph="..." />
           </folding>
         </state>
       </provider>
