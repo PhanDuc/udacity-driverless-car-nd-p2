@@ -26,7 +26,11 @@ Here is the basic solution using LeNet and Vgg.
 ## Advance solution
 Please see the "advance" folder. 
 
-There is some write up at my blog: [https://medium.com/@hengcherkeng/updated-my-99-40-solution-to-udacity-nanodegree-project-p2-traffic-sign-classification](https://medium.com/@hengcherkeng/updated-my-99-40-solution-to-udacity-nanodegree-project-p2-traffic-sign-classification-5580ae5bd51f#.da1xutkw2)
+There is some write up at my blog: 
+
+[https://medium.com/@hengcherkeng/updated-my-99-40-solution-to-udacity-nanodegree-project-p2-traffic-sign-classification](https://medium.com/@hengcherkeng/updated-my-99-40-solution-to-udacity-nanodegree-project-p2-traffic-sign-classification-5580ae5bd51f#.da1xutkw2)
+
+[https://medium.com/@hengcherkeng/updated-my-99-68-solution-to-udacity-nanodegree-project-p2-traffic-sign-classification](https://medium.com/@hengcherkeng/updated-my-99-68-solution-to-udacity-nanodegree-project-p2-traffic-sign-classification-56840768dec8#.g377ckv5z)
 
 I use modified densenet[1] and obtained **99.68%** on the test set. 
 The network complexity is about **27.0 million MAC** (multiply–accumulate operation counts). 
