@@ -121,7 +121,7 @@ def l2_regulariser(decay):
         name = v.name
         if 'weight' in name:  #this is weight
             l2 = decay * tf.nn.l2_loss(v)
-            tf.add_to_collection('losses', l2)
+            tf.add_to_collection('l2_losses', l2)
         elif 'bias' in name:  #this is bias
             pass
         elif 'beta' in name:
@@ -136,11 +136,10 @@ def l2_regulariser(decay):
             pass
 
         else:
-            #pass
             #raise Exception('unknown variable type: %s ?'%name)
             pass
 
-    l2_loss = tf.add_n(tf.get_collection('losses'))
+    l2_loss = tf.add_n(tf.get_collection('l2_losses'))
     return l2_loss
 
 
@@ -152,7 +151,7 @@ def l1_regulariser(decay):
         name = v.name
         if 'weight' in name:  #this is weight
             l1 = decay * tf.reduce_sum(tf.abs(v))
-            tf.add_to_collection('losses', l1)
+            tf.add_to_collection('l1_losses', l1)
         elif 'bias' in name:  #this is bias
             pass
         elif 'beta' in name:
@@ -167,10 +166,10 @@ def l1_regulariser(decay):
             pass
 
         else:
-            #pass
-            raise Exception('unknown variable type: %s ?'%name)
+            #raise Exception('unknown variable type: %s ?'%name)
+            pass
 
-    l1_loss = tf.add_n(tf.get_collection('losses'))
+    l1_loss = tf.add_n(tf.get_collection('l1_losses'))
     return l1_loss
 
 

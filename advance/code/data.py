@@ -8,10 +8,11 @@ from net.common import *
 # data visualisation ----------------------
 # e.g. for debug
 
-def imshow(name, image):
+def imshow(name, image, size=1):
+    H,W,_= image.shape
     cv2.namedWindow(name, cv2.WINDOW_NORMAL)
     cv2.imshow(name, cv2.cvtColor(image, cv2.COLOR_BGR2RGB).astype(np.uint8))
-    cv2.resizeWindow(name, 320, 320)
+    cv2.resizeWindow(name, size*W, size*H)
 
 
 def show_data(datas,labels,classnames, num=None, pause_time=-1 ):
@@ -139,10 +140,12 @@ def extend_data_by_flipping(images, labels):
 
 
 # def perturb(image, keep, angle_limit=15, scale_limit=0.1, translate_limit=3, distort_limit=3, illumin_limit=0.5)
-def perturb(image, keep, angle_limit=15, scale_limit=0.1, translate_limit=3, distort_limit=3, illumin_limit=0.7):
+def perturb(image, keep, angle_limit=15, scale_limit=0.1, translate_limit=3, distort_limit=3, illumin_limit=0.7): #7
 
     u=np.random.uniform()
     if u>keep :
+        # geometric-------------
+        ##if 1:
         (W, H, C) = image.shape
         center = np.array([W / 2., H / 2.])
         da = np.random.uniform(low=-1, high=1) * angle_limit/180. * math.pi
@@ -165,37 +168,41 @@ def perturb(image, keep, angle_limit=15, scale_limit=0.1, translate_limit=3, dis
         matrix  = cv2.getPerspectiveTransform(pts1.astype(np.float32), pts2.astype(np.float32))
         perturb = cv2.warpPerspective(image, matrix, (W, H), flags=cv2.INTER_LINEAR,
                                       borderMode=cv2.BORDER_REFLECT_101)  # BORDER_WRAP  #BORDER_REFLECT_101  #cv2.BORDER_CONSTANT  BORDER_REPLICATE
+    #else:
+         #   perturb=image
 
-        #brightness, contrast, saturation-------------
+        #illumination -------------
         #from mxnet code
-        if 1:  #brightness
-            alpha = 1.0 + illumin_limit*random.uniform(-1, 1)
-            perturb *= alpha
-            perturb = np.clip(perturb,0.,255.)
-            pass
+        ##if 1:
 
-        if 1:  #contrast
-            coef = np.array([[[0.299, 0.587, 0.114]]]) #rgb to gray (YCbCr) :  Y = 0.299R + 0.587G + 0.114B
+        #brightness
+        alpha = 1.0 + illumin_limit*random.uniform(-1, 1)
+        perturb *= alpha
+        perturb = np.clip(perturb,0.,255.)
+        pass
 
-            alpha = 1.0 + illumin_limit*random.uniform(-1, 1)
-            gray = perturb * coef
-            gray = (3.0 * (1.0 - alpha) / gray.size) * np.sum(gray)
-            perturb *= alpha
-            perturb += gray
-            perturb = np.clip(perturb,0.,255.)
-            pass
+        #contrast
+        coef = np.array([[[0.299, 0.587, 0.114]]]) #rgb to gray (YCbCr) :  Y = 0.299R + 0.587G + 0.114B
 
-        if 1:  #saturation
-            coef = np.array([[[0.299, 0.587, 0.114]]]) #rgb to gray (YCbCr) :  Y = 0.299R + 0.587G + 0.114B
+        alpha = 1.0 + illumin_limit*random.uniform(-1, 1)
+        gray = perturb * coef
+        gray = (3.0 * (1.0 - alpha) / gray.size) * np.sum(gray)
+        perturb *= alpha
+        perturb += gray
+        perturb = np.clip(perturb,0.,255.)
+        pass
 
-            alpha = 1.0 + illumin_limit*random.uniform(-1, 1)
-            gray = perturb * coef
-            gray = np.sum(gray, axis=2, keepdims=True)
-            gray *= (1.0 - alpha)
-            perturb *= alpha
-            perturb += gray
-            perturb = np.clip(perturb,0.,255.)
-            pass
+        #saturation
+        coef = np.array([[[0.299, 0.587, 0.114]]]) #rgb to gray (YCbCr) :  Y = 0.299R + 0.587G + 0.114B
+
+        alpha = 1.0 + illumin_limit*random.uniform(-1, 1)
+        gray = perturb * coef
+        gray = np.sum(gray, axis=2, keepdims=True)
+        gray *= (1.0 - alpha)
+        perturb *= alpha
+        perturb += gray
+        perturb = np.clip(perturb,0.,255.)
+        pass
 
         return perturb
 
@@ -339,6 +346,42 @@ def get_label_image(c):
     return label_image
 
 
+def get_all_label_images():
+    img=cv2.imread('/root/share/project/udacity/project2_01/data/signnames_all.jpg',1)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    H, W, _ = img.shape
+    dH = H/7.
+    dW = W/7.105
+    num_class=43
+
+    label_images=[]
+    for c in range(num_class):
+        y = c//7
+        x = c%7
+        label_image = img[round(y*dH):round(y*dH+dH), round(x*dW):round(x*dW+dW),:]
+        label_image = cv2.resize(label_image, (0,0), fx=32./dW, fy=32./dH,)
+        label_images.append(label_image)
+
+    return label_images
+
+
+def get_all_train_mean_images():
+    img = cv2.imread(r'/root/share/docs/git/hengck23-udacity/udacity-driverless-car-nd-p2/submission(notebook+html)/002/out/train_data_summary.jpg', 1)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    H, W, _ = img.shape
+
+    num_class = 43
+    mean_images = []
+    for c in range(num_class):
+        y = c*32
+        x = 32
+        mean_image = img[y:y+32, x:x+32, :]
+        mean_images.append(mean_image)
+
+    return mean_images
+
+
+
 def insert_subimage(image, sub_image, y, x):
 
     h, w, c = sub_image.shape
@@ -357,7 +400,9 @@ def run_data_explore_0():
     #count
     #h = np.histogram(train_labels, bins=np.arange(num_class))
 
-    #results image
+    #results image ------------------------------------------
+    images, labels = test_images, test_labels
+
     num_sample=10
     results_image = 255.*np.ones(shape=(num_class*height,(num_sample+2+22)*width, channel),dtype=np.float32)
     for c in range(num_class):
@@ -365,8 +410,8 @@ def run_data_explore_0():
         insert_subimage(results_image, label_image, c*height, 0)
 
         #make mean
-        idx = list(np.where(train_labels== c)[0])
-        mean_image = np.average(train_images[idx], axis=0)
+        idx = list(np.where(labels== c)[0])
+        mean_image = np.average(images[idx], axis=0)
         insert_subimage(results_image, mean_image, c*height, width)
 
         # imshow('mean_image',mean_image)
@@ -375,18 +420,18 @@ def run_data_explore_0():
 
         #make random sample
         for n in range(num_sample):
-            sample_image = train_images[np.random.choice(idx)]
+            sample_image = images[np.random.choice(idx)]
             insert_subimage(results_image, sample_image, c*height, (2+n)*width)
 
         #print summary
         count=len(idx)
-        percentage = float(count)/float(len(train_images))
+        percentage = float(count)/float(len(images))
         cv2.putText(results_image, '%02d:%-6s'%(c, classnames[c]), ((2+num_sample)*width, int((c+0.7)*height)),cv2.FONT_HERSHEY_SIMPLEX,0.5,(0,0,0),1)
         cv2.putText(results_image, '[%4d]'%(count), ((2+num_sample+14)*width, int((c+0.7)*height)),cv2.FONT_HERSHEY_SIMPLEX,0.5,(0,0,255),1)
         cv2.rectangle(results_image,((2+num_sample+16)*width, c*height),((2+num_sample+16)*width + round(percentage*3000), (c+1)*height),(0,0,255),-1)
 
 
-    cv2.imwrite('/root/share/project/udacity/project2_01/data/data_summary.jpg',cv2.cvtColor(results_image, cv2.COLOR_BGR2RGB))
+    cv2.imwrite('/root/share/project/udacity/project2_01/data/test_data_summary.jpg',cv2.cvtColor(results_image, cv2.COLOR_BGR2RGB))
     imshow('results_image',results_image)
     cv2.waitKey(0)
 
@@ -401,6 +446,7 @@ def run_data_explore_1():
     num_class = 43
     _, height, width, channel = train_images.shape
 
+
     # count
     # h = np.histogram(train_labels, bins=np.arange(num_class))
 
@@ -408,7 +454,7 @@ def run_data_explore_1():
     num_sample = 30
     perturbance_per_sample = 30
 
-    results_image = 255. * np.ones(shape=(num_sample * height, (perturbance_per_sample+1)* width+10, channel),dtype=np.float32)
+    results_image = 255. * np.ones(shape=(num_sample * height, (perturbance_per_sample+1)* width+2, channel),dtype=np.float32)
 
     for j in range(num_sample):
         i = random.randint(0, num_train_flip - 1)
@@ -418,11 +464,11 @@ def run_data_explore_1():
 
         for k in range(0, perturbance_per_sample):
             perturb_image = perturb(image, keep=0)
-            insert_subimage(results_image, perturb_image, j*height, (k+1)*width+10)
+            insert_subimage(results_image, perturb_image, j*height, (k+1)*width+2)
 
 
 
-    cv2.imwrite('/root/share/project/udacity/project2_01/data/data_perturb.jpg',cv2.cvtColor(results_image, cv2.COLOR_BGR2RGB))
+    cv2.imwrite('/root/share/project/udacity/project2_01/data/train_data_perturb.jpg',cv2.cvtColor(results_image, cv2.COLOR_BGR2RGB))
     imshow('results_image', results_image)
     cv2.waitKey(0)
 

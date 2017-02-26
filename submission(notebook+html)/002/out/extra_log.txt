@@ -1,0 +1,38 @@
+n=0: true = 13:Yield
+	top0: 1.000000  13:Yield
+	top1: 0.000000  26:Traffic signals
+	top2: 0.000000  24:Road narrows on the right
+	top3: 0.000000  00:Speed limit (20km/h)
+	top4: 0.000000  14:Stop
+
+n=1: true = 38:Keep right
+	top0: 1.000000  38:Keep right
+	top1: 0.000000  34:Turn left ahead
+	top2: 0.000000  05:Speed limit (80km/h)
+	top3: 0.000000  30:Beware of ice/snow
+	top4: 0.000000  36:Go straight or right
+
+n=2: true = 03:Speed limit (60km/h)
+	top0: 0.352064  28:Children crossing
+	top1: 0.315537  29:Bicycles crossing
+	top2: 0.148701  02:Speed limit (50km/h)
+	top3: 0.037797  19:Dangerous curve to the left
+	top4: 0.025367  40:Roundabout mandatory
+
+n=3: true = 40:Roundabout mandatory
+	top0: 0.938421  40:Roundabout mandatory
+	top1: 0.056301  33:Turn right ahead
+	top2: 0.004292  34:Turn left ahead
+	top3: 0.000149  38:Keep right
+	top4: 0.000134  05:Speed limit (80km/h)
+
+n=4: true = 14:Stop
+	top0: 0.999497  14:Stop
+	top1: 0.000480  29:Bicycles crossing
+	top2: 0.000013  07:Speed limit (100km/h)
+	top3: 0.000003  33:Turn right ahead
+	top4: 0.000002  08:Speed limit (120km/h)
+
+
+
+**visual results**:  input, followed by top-5

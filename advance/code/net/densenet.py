@@ -36,12 +36,13 @@ def DenseNet_3( input_shape=(1,1,1), output_shape = (1)):
     with tf.variable_scope('block4') as scope:
         block4 = dense_block_cbr(block3, num=4, num_kernels=32, kernel_size=(3, 3), drop=None)
         block4 = conv2d_bn_relu(block4, num_kernels=num_class, kernel_size=(1,1), stride=[1, 1, 1, 1], padding='SAME')
-        block4 = dropout(block4, keep=0.8)
+        block4 = dropout(block4, keep=0.9)
         block4 = avgpool(block4, is_global_pool=True)
-
 
     logit = block4
     return logit
+
+
 
 
 #--------------------------------------------------------------------------------------------
@@ -56,7 +57,7 @@ if __name__ == '__main__':
 
     num_class=43
     H, W, C = (32, 32, 3)
-    logit = DenseNet_2(input_shape=(H,W,C), output_shape = (num_class))
+    logit = DenseNet_3(input_shape=(H,W,C), output_shape = (num_class))
 
     #input   = tf.get_default_graph().get_tensor_by_name('input:0')
     #print(input)
