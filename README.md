@@ -47,6 +47,7 @@ Finally, the loss curves are shown below.
 
 ![image](advance/docs/003.png)
 ![image](advance/docs/004.png)
+![image](advance/docs/100.png)
 
 ### [Reference]
 [1] "Densely Connected Convolutional Networks" - Gao Huang, Zhuang Liu, Kilian Q. Weinberger, Laurens van der Maaten, Arxiv 2016
